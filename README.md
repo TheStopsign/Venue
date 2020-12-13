@@ -38,10 +38,7 @@ Gauging Engagement | www.venue-meetings.com
 2. Start the frontend client `npm run serve`
 
 ## Compiles and minifies for production
-
-Note, this step is only required live/production builds
-
-`npm run build`
+<em>Note, this step is only required live/production builds</em> `npm run build`
 
 ## Testing
 `npm run test` will initiate CL testing using Cypress
