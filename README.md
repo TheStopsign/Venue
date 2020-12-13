@@ -2,41 +2,47 @@
 
 # Venue
 
-## Gauging Engagement | www.venue-meetings.com
+Gauging Engagement | www.venue-meetings.com
 
 <em>Every second LMS fails, we get one step closer</em>
 
-## Prerequisites
+## Developing
+
+### Prerequisites
+
+#### Technologies
 
 - Vue.js
 - Node.js
 - MongoDB
 
-## Developing
-
-Clone the repo
-
-Run `npm install` in the project's /server director, and then in the root directory.
-
-### Front-End
-
-Run `npm run serve` 
+#### Additional setup steps
+1. Clone the repository
+2. Navigate into the repository's server directory
+3. `npm install`
+4. Navigate back into the repository's root directory
+5. `npm install`
 
 ### Back-End
 
-1. In a separate shell navigate to the 'server' directory `cd server`
+#### 1) Database
+1. In a new shell, navigate to the /server directory
 2. Start the mongodb daemon `mongod` (might need to run with root priveleges depending on installation or kill existing instances with `sudo killall mongod`)
-3. In a separate shell navigate to the 'server' directory again
-4. Start the node server `nodemon server`
+
+#### 2) Server
+1. In a new shell, navigate to the /server directory
+2. Start the NodeJS server `nodemon server`
+
+#### 3) Front-End
+1. In a new shell, navigate to the / directory (project's root directory)
+2. Start the frontend client `npm run serve`
 
 ## Compiles and minifies for production
-```
-npm run build
-```
+
+Note, this step is only required live/production builds
+
+`npm run build`
 
 ## Testing
 `npm run test` will initiate CL testing using Cypress
 `npm run test:ui` will launch Cypress's GUI based testing client
-
-## Lints and fixes files
-`npm run lint`
