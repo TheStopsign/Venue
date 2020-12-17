@@ -7,7 +7,6 @@
     "build": "vue-cli-service build && mkdir dist/dist && touch dist/dist/build.js",
     "lint": "vue-cli-service lint",
     "postinstall": "npm install --prefix ./server",
-    "preinstall": "node gcsSetup.js",
     "start": "npm run start --prefix server",
     "test": "cypress run",
     "test:ui": "cypress open"

@@ -1,14 +1,14 @@
 <template>
     <footer class="footer">
     	Venue | 
-    	<a href="https://github.com/rcos/Venue2" target="_blank" aria-label="Github Repository">
-    		<img class="icon github-icon" src="../assets/github_mark.png" aria-label="Github Icon" alt="Github Icon"/>
+    	<a href="https://github.com/TheStopsign/Venue" target="_blank" aria-label="Github Repository">
+    		<img class="icon" src="../assets/github_mark.png" aria-label="Github Icon" alt="Github Icon"/>
     	</a> |
 		<a href="https://blacklivesmatter.com/" target="_blank" aria-label="Black Lives Matter">
     		<img class="icon" src="../assets/venue-black-lives-matter.svg" aria-label="BLM Icon" alt="BLM Icon"/>
     	</a> |
 		<a href="https://girlswhocode.com/" target="_blank" aria-label="Girls Who Code">
-			<img class="icon girls-who-code-icon" src="../assets/Girls_who_code_logo.svg" aria-label="Girls Who Code Icon" alt="Girls Who Code Icon"/>
+			<img class="icon" src="../assets/Girls_who_code_logo.svg" aria-label="Girls Who Code Icon" alt="Girls Who Code Icon"/>
 	</a> |
 		An RCOS project
     </footer>
@@ -60,7 +60,7 @@ created() {
 
 .icon {
 	filter: var(--widgets-color); 
-	width: 1.5rem;
+	height: 1.5rem;
 	cursor: pointer;
 }
 
@@ -68,13 +68,5 @@ created() {
 	width: 1rem;
 	cursor: pointer;
 	filter: var(--widgets-color);
-}
-
-.github-icon {
-	width: 1.25rem;
-}
-
-.girls-who-code-icon {
-	width: 3rem;
 }
 </style>
