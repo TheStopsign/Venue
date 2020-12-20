@@ -43,7 +43,7 @@
 
 <style scoped>
   .button {
-    background-color: white; 
+    background-color: var(--main-background-color); 
     font-size: 1.5rem;
     width: 12rem;
     /*margin-top: 1rem;*/

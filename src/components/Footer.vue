@@ -9,8 +9,10 @@
     	</a> |
 		<a href="https://girlswhocode.com/" target="_blank" aria-label="Girls Who Code">
 			<img class="icon" src="../assets/Girls_who_code_logo.svg" aria-label="Girls Who Code Icon" alt="Girls Who Code Icon"/>
-	</a> |
-		An RCOS project
+		</a> |
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ejwhitton43%40gmail.com&currency_code=USD" target="_blank">
+			Donate
+		</a>
     </footer>
 </template>
 

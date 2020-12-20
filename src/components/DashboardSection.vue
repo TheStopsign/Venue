@@ -104,16 +104,6 @@
   height: 100%;
 }
 
-.dashboard-section-body-container::-webkit-scrollbar {
-  width: 12px;
-}
-
-.dashboard-section-body-container::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: var(--dashboard-background-color);
-}
-
 /*Ipad & below*/
 @media only screen and (max-width: 800px) {
 

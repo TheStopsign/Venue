@@ -22,6 +22,10 @@ export default {
       --red-button-text: rgb(207,39,41);
   */
   setPalette(root, dark_mode) {
+
+      // Scrollbar
+      root.style.setProperty('--scrollbar-thumb-color', '#87a7c7');
+
       if (!dark_mode) {
 
           // Default palette - main (general)
@@ -271,6 +275,9 @@ export default {
           root.style.setProperty('--input-border', '#0e83cc');         //lime
           root.style.setProperty('--input-text', '#6cb6e6');           //green
           root.style.setProperty('--input-shadow', '#9fdfed');         //#ff00ff
+
+          // Scrollbar
+          root.style.setProperty('--scrollbar-thumb-color', '#87a7c7');
 
           // Errors 
           root.style.setProperty('--error', '#b52d2d');               //#00ff00

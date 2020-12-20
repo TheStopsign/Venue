@@ -69,6 +69,25 @@
   --poll-background: lightskyblue;
 }
 
+/* The emerging W3C standard
+   that is currently Firefox-only */
+* {
+  scrollbar-color: var(--scrollbar-thumb-color) var(--main-background-color);
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+*::-webkit-scrollbar-track {
+  background: var(--main-background-color);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: calc(0.6rem / 2);
+}
+
 body {
   height: auto; 
   background-color: var(--main-background-color); 
@@ -576,16 +595,6 @@ h1,h2,h4 {
   overflow-y: auto;
 }
 
-.dashboard-section-modal .sub-section::-webkit-scrollbar {
-  width: 12px;
-}
-
-.dashboard-section-modal .sub-section::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: var(--modal-background); 
-}
-
 .dashboard-section-modal .sub-section.is-mobile {
   margin: 0;
 }
@@ -676,26 +685,6 @@ h1,h2,h4 {
   font-size: 0.8rem;
   position: relative;
   top: 25px;
-}
-
-
-/* The emerging W3C standard
-   that is currently Firefox-only */
-custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #d13e34 white;
-}
-
-/* Works on Chrome/Edge/Safari */
-custom-scrollbar::-webkit-scrollbar {
-  width: 10px;
-}
-custom-scrollbar::-webkit-scrollbar-track {
-  background: white;
-}
-custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #d13e34;
-  border-radius: 20px;
 }
 
 .big-button {

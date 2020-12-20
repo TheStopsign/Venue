@@ -75,14 +75,6 @@
   height: 12.5rem;
   overflow-y: auto;
 }
-.active-event-list::-webkit-scrollbar {
-  width: 12px;
-}
-.active-event-list::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px var(--event-active-shadow);
-background-color: var(--event-list-background); 
-}
 .active-event-link {
   color: var(--event-active-link);
 }
