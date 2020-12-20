@@ -61,7 +61,6 @@ import LectureAPI from '@/services/LectureAPI.js'
 import UserAPI from '@/services/UserAPI.js'
 import LectureSubmissionAPI from '@/services/LectureSubmissionAPI.js'
 import PlaybackPollAPI from '@/services/PlaybackPollAPI.js'
-import PaletteAPI from '@/services/PaletteAPI.js'
 
 import chartjs from 'chart.js'
 
@@ -129,10 +128,6 @@ export default {
 	methods: {
 		getColors() {
 
-			let root = document.documentElement;
-
-			PaletteAPI.setPalette(root, this.current_user.dark_mode);
-
 			var live_border = new Color();
       		var live_fill = new Color();
       		var playback_border = new Color();
@@ -140,7 +135,9 @@ export default {
 			var absent_border = new Color(); 
 			var absent_fill = new Color(); 
 
-			var text_color = new Color(); 
+			var text_color = new Color();
+
+			let root = document.documentElement;
 
 			live_border = getComputedStyle(root).getPropertyValue('--stats-live-border');
       		live_fill = getComputedStyle(root).getPropertyValue('--stats-live-fill');

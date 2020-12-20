@@ -119,7 +119,7 @@ export default {
 
 <style scoped>
 #lecture_playback {
-	height: calc(100vh - 8rem)
+	height: calc(100vh - 12rem)
 }
 #video_player {
 	width: 100%;

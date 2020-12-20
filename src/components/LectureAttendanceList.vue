@@ -156,6 +156,7 @@
 	  height: 100%;
 	  margin-right: 1rem;
 	  margin-bottom: 1rem;
+    box-shadow: 0px 3px 3px 0px var(--course-card-shadow);
 	}
 
 	.namecard-edging.live-color {
@@ -172,7 +173,7 @@
 
 	.namecard {
 	  position: relative;
-    background: var(--course-card-background);
+    background: var(--main-background-color);
     color: var(--course-card-text);
 	  text-align: center;
     border-radius: .25rem;

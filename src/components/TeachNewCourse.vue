@@ -1,34 +1,26 @@
 <template>
   <div>
     <h2>Teach New Course</h2>
+    <br/>
     <form @submit.prevent="addCourse">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Name:</label>
-            <input type="text" class="form-control" v-model="course.name">
-          </div>
-        </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Prefix / Dept</label>
-              <input class="form-control" v-model="course.prefix">
-            </div>
-          </div>
-        </div><br />
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Suffix / Number</label>
-              <input type="number" class="form-control" v-model="course.suffix">
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary">Create</button>
-        </div>
+      <div class="form-group">
+        <label class="label">Name:</label>
+        <input type="text" class="form-control" v-model="course.name">
+      </div>
+      <br/>
+      <div class="form-group">
+        <label class="label">Prefix / Dept:</label>
+        <input class="form-control" v-model="course.prefix">
+      </div>
+      <br/>
+      <div class="form-group">
+        <label class="label">Suffix / Number:</label>
+        <input type="number" class="form-control" v-model="course.suffix">
+      </div>
+      <br/>
+      <div class="form-group">
+        <button class="btn btn-primary">Create</button>
+      </div>
     </form>
 
   <!-- Showing Instructors -->
@@ -63,4 +55,21 @@
       }
     }
   }
-</script>courses
+</script>
+
+<style scoped>
+  .form-group{
+    max-width: 500px;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .form-control {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .label{
+    width: 100%;
+    text-align: left;
+    margin-left: 1rem;
+  }
+</style>

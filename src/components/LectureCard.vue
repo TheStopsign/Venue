@@ -15,22 +15,22 @@
         </div>
         <div class="lecture-card-section" id="right-section">
           <div v-if="lecture_type === 'Live'" class="right-container">
-            <img src="@/assets/clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
+            <img src="@/assets/venue-clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
             <p v-if="lecture.checkin_window_status === 'open'" class="lecture-time-text open-text">{{ getTimeToWindowCloseString(false) }}</p>
             <p v-else class="lecture-time-text closed-text">waiting...</p>
           </div>
           <div v-else-if="lecture_type === 'Playback'" class="right-container">
-            <img src="@/assets/clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
+            <img src="@/assets/venue-clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
             <p class="lecture-time-text playback-percentage-text">{{ getTimeToWindowCloseString(true) }}</p>
             <!-- <p class="playback-percentage-text">87% submission</p> -->
           </div>
           <div v-else-if="lecture_type === 'Recent'" class="right-container">
-            <img src="@/assets/clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
+            <img src="@/assets/venue-clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
             <p class="lecture-time-text closed-text">closed</p>
             <!-- <p class="recent-percentage-text">91% submission</p> -->
           </div>
           <div v-else-if="lecture_type === 'Upcoming'" class="right-container">
-            <img src="@/assets/clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
+            <img src="@/assets/venue-clock.svg" class="clock" aria-label="Time Icon" alt="Time Icon">
             <p v-if="lecture.allow_live_submissions" class="lecture-time-text upcoming-text">{{ getUpcomingTimeString(lecture.start_time) }}</p>
             <p v-else class="lecture-time-text upcoming-text">{{ getUpcomingTimeString(lecture.playback_submission_start_time) }}</p>
           </div>
@@ -58,7 +58,6 @@
       }
     },
     created() {
-      // TODO: Change plabyack and recent sections to show percentages like in figma
       this.is_instructor = this.$store.state.user.current_user.is_instructor
       this.lecture_course = this.lecture.sections[0].course
     },
@@ -125,9 +124,9 @@
     width: 95%;
     margin-left: 0;
     border-radius: 5px;
-    -webkit-transition: all 250ms cubic-bezier(0.19, 1, 0.22, 1);
-    -ms-transition: all 250ms cubic-bezier(0.19, 1, 0.22, 1);
-    transition: all 250ms cubic-bezier(0.19, 1, 0.22, 1);
+    -webkit-transition: width 250ms cubic-bezier(0.19, 1, 0.22, 1);
+    -ms-transition: width 250ms cubic-bezier(0.19, 1, 0.22, 1);
+    transition: width 250ms cubic-bezier(0.19, 1, 0.22, 1);
     box-shadow: 0px 3px 3px 1px var(--lecture-pill-shadow);
   }
 
@@ -157,7 +156,7 @@
     width: 91%;
     margin-top: -3.5rem;
     margin-left: 1.7%;
-    background-color: var(--lecture-info-background);
+    background-color: var(--main-background-color);
     border-radius: 5px;
     box-shadow: 0px 3px 3px 1px var(--lecture-pill-shadow);
     z-index: 4;
@@ -168,9 +167,9 @@
     /* height: 4.5rem; */
     width: 100%;
     /* margin-left: -1.25%; */
-    -webkit-transition: all 250ms cubic-bezier(0.19, 1, 0.22, 1);
-    -ms-transition: all 250ms cubic-bezier(0.19, 1, 0.22, 1);
-    transition: all 250ms cubic-bezier(0.19, 1, 0.22, 1);
+    -webkit-transition: width 250ms cubic-bezier(0.19, 1, 0.22, 1);
+    -ms-transition: width 250ms cubic-bezier(0.19, 1, 0.22, 1);
+    transition: width 250ms cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .lecture_card_link:focus {
@@ -198,7 +197,7 @@
   .course-name {
     font-size: .75rem;
     margin-top: 1rem;
-    color: var(--lecture-course-name-text);
+    color: var(--dashboard-text-color);
     font-weight: bold;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -213,7 +212,7 @@
   }
 
   .lecture-name {
-    color: var(--lecture-name-text);
+    color: var(--dashboard-text-color);
     font-size: 1.25rem;
     margin-top: 1rem;
     font-weight: bold;

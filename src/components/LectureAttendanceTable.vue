@@ -108,7 +108,7 @@
 										</div>
 										{{polls[i].question}}
 										<button type="button" v-if="!checkin.start_time || (checkin.start_time && Date.parse(checkin.start_time) > Date.now())" class="btn btn-secondary" @click="edit_poll_index = i" :title="'Edit '+polls[i].question">
-											<img class="svg-color" src="@/assets/icons8-edit.svg" alt="Edit" width="40" aria-label="Edit">
+											<img class="svg-color" src="@/assets/venue-edit.svg" alt="Edit" width="40" aria-label="Edit">
 										</button>
 									</td>
 									<td v-else>X</td>
@@ -136,7 +136,7 @@
 										</div>
 										{{polls[i].question}}
 										<button type="button" v-if="Date.parse(lecture.playback_submission_start_time) > Date.now()" class="btn btn-secondary" @click="edit_poll_index = i" :title="'Edit '+polls[i].question">
-											<img class="svg-color" src="@/assets/icons8-edit.svg" alt="Edit" width="40" aria-label="Edit">
+											<img class="svg-color" src="@/assets/venue-edit.svg" alt="Edit" width="40" aria-label="Edit">
 										</button>
 									</td>
 								</tr>

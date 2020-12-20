@@ -42,8 +42,8 @@ export default {
 
 <style scoped>
 :root {
-	--toggle-switch-on-background:  #bfffc6;
-	--toggle-switch-on-ball: #04dd74;
+	/* --toggle-switch-on-background:  #04dd74;
+	--toggle-switch-on-ball: #04852F; */
 
 	--toggle-switch-off-background: #ff8787;
 	--toggle-switch-off-ball: #e95454;

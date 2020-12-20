@@ -146,7 +146,7 @@ export default {
       const alnums =
         "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
       let result = "";
-      for (let i = 1000; i > 0; --i) {
+      for (let i = 50; i > 0; --i) {
         result += alnums[Math.floor(Math.random() * alnums.length)];
       }
       this.event.code = result;

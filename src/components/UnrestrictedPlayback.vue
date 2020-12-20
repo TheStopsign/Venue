@@ -44,7 +44,7 @@ export default {
 	position: fixed;
 	left: 2rem;
 	right: 2rem;
-	top: 4rem;
+	top: 8rem;
 	bottom: 2rem;
 }
 #video_player {

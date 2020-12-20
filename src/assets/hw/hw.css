@@ -1,0 +1,68 @@
+.cobweb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 256px;
+    height: 256px;
+    pointer-events: none;
+}
+
+@media (max-width: 575px) {
+    .web-size, .cobweb {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        right: 0px;
+    }
+    .spider-size {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (min-width: 600px) {
+    .web-size {
+        width: 256px;
+        height: 256px;
+    }
+}
+
+ghost {
+	position: relative;
+	left: 5px;
+    animation-name: ghost;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    width: auto;
+    height: 100px;
+}
+
+@keyframes ghost {
+	0% { bottom: 0px }
+	50% { bottom: 10px }
+    100% { bottom: 0px }
+}
+
+spider {
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    animation-name: spider;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spider {
+    0% { top: 10px; right: 20px }
+    10% { top: 25px; right: 30px }
+    20% { top: 40px; right: 40px }
+    30% { top: 45px; right: 45px }
+    40% { top: 55px; right: 35px }
+    50% { top: 75px; right: 45px }
+    60% { top: 50px; right: 40px }
+    70% { top: 35px; right: 35px }
+    80% { top: 25px; right: 30px }
+    90% { top: 15px; right: 25px }
+    100% { top: 10px; right: 20px }
+}

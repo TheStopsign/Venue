@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- TODO: Check if student submitted already -->
     <div id="qr-scanning-container" v-if="camera_scanning_window_open">
       <button @click="camera_scanning_window_open = false" id="exit_preview_btn" tabindex="0" aria-label="Close QR Scanner">X</button>
       <qrcode-stream id="video_preview" @decode="checkForQRMatch"></qrcode-stream>
@@ -13,10 +12,10 @@
         🛑
       </button>
       <button v-else-if="lectureIsOngoing()" @click="handleStartScreenScan()" class="header-btn btn btn-primary" title="Scan QR">
-        <img class="svg-color" src="@/assets/icons8-qr-code-50.png" width="60" alt="QR Code" aria-label="QR Code">
+        <img class="svg-color" src="@/assets/venue-qr-code.svg" width="60" alt="QR Code" aria-label="QR Code">
       </button>
       <router-link class="header-btn btn btn-secondary" v-else-if="canWatchRecording()" :to="{name: 'lecture_playback', params: { lecture_id: lecture._id }}">
-        <img class="svg-color" src="@/assets/icons8-video-64.png" width="60" alt="Video" aria-label="Video" title="Watch Recording">
+        <img class="svg-color" src="@/assets/venue-video-icon.svg" width="60" alt="Video" aria-label="Video" title="Watch Recording">
       </router-link>
     </div>
     <LectureAttendanceTable :is_instructor="false" :lecture="lecture" :submissions="[submission]" />

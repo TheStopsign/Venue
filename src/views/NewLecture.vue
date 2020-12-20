@@ -35,7 +35,7 @@
         </div>
         <!-- Times -->
         <div v-if="allow_live_submissions">
-          <div class="input-wrapper row">
+          <div class="input-wrapper row" >
             <div class="time-container">
               <label id="start_time_label">Start Time</label>
               <div id="lecture_start" class="js-inline-picker" aria-labelledby="start_time_label" :tabindex="(modal_open ? '-1' : '0')"></div>
@@ -58,7 +58,7 @@
                 <div class="checkin-poll col col-4 my-auto">
                   <div v-if="null != polls[i]">
                     <button type="button" class="btn btn-secondary" @click="add_poll_index = i" :title="'Edit '+polls[i].question">
-                      <img class="svg-color" src="@/assets/icons8-edit.svg" alt="Edit" width="40" aria-label="Edit">
+                      <img class="svg-color" src="@/assets/venue-edit.svg" alt="Edit" width="40" aria-label="Edit">
                     </button>
                     <button type="button" class="btn btn-danger" @click="polls[i] = null" :title="'Remove ' +polls[i].question">X</button>
                   </div>
@@ -108,7 +108,8 @@ import QRCode from "qrcode";
 import GoogleMap from "@/components/GoogleMap";
 import LectureUploadModal from "@/components/LectureUploadModal";
 import MultiSelectDropdown from "@/components/MultiSelectDropdown";
-import Picker from 'pickerjs';
+//import Picker from 'pickerjs';
+import BroderickPicker from "@/assets/broderickpicker/bpicker";
 import CreatePoll from '@/components/CreatePoll';
 import '../../node_modules/pickerjs/src/index.css';
 // DatePicker themes options:
@@ -141,7 +142,11 @@ export default {
       add_poll_index: -1,
       polls: [],
       start_time_picker: null,
-      end_time_picker: null
+      end_time_picker: null,
+      max_year: null,
+      min_year: null,
+      fix_const: null,
+      daysInSelectedMonth: null
     };
   },
   created() {
@@ -177,13 +182,15 @@ export default {
       let hasType = this.allow_live_submissions || this.allow_playback_submissions
       if(hasTitle && hasSections && hasType) {
         if(this.allow_live_submissions) {
-          this.lecture.start_time = this.start_time_picker.pick().date
-          this.lecture.end_time = this.end_time_picker.pick().date
-          let validRange = this.start_time_picker.pick().date <= this.end_time_picker.pick().date
+          this.lecture.start_time = this.start_time_picker.pick()
+          this.lecture.end_time = this.end_time_picker.pick()
+          console.log('new lecture start => ' + this.lecture.start_time);
+          console.log('new lecture end => ' + this.lecture.end_time);
+          let validRange = this.start_time_picker.pick() <= this.end_time_picker.pick()
           this.pickers.forEach((picker,i) => {
             if(picker) {
-              this.checkins[i].start_time = picker.start.pick().date
-              this.checkins[i].end_time = picker.end.pick().date
+              this.checkins[i].start_time = picker.start.pick()
+              this.checkins[i].end_time = picker.end.pick()
             }
           })
           if(validRange) {
@@ -266,8 +273,8 @@ export default {
 
         Promise.all(poll_promises).then(resolved => {
           this.$router.push({
-            name: "course_info",
-            params: { id: this.$route.params.course_id }
+            name: "lecture_info",
+            params: { lecture_id: this.lecture._id }
           })
         })
       }
@@ -280,6 +287,9 @@ export default {
     async getSectionsForCourse() {
       const response = await SectionAPI.getSectionsForCourse(this.course_id);
       this.course_sections = response.data;
+      if(!this.$store.state.user.current_user.instructor_courses.includes(this.$route.params.course_id)) {
+        this.course_sections = this.course_sections.filter(section => this.$store.state.user.current_user.ta_sections.includes(section._id))
+      }
       this.course_sections_have_loaded = true;
     },
     hasOverlaps(checkins) {
@@ -321,7 +331,7 @@ export default {
       for(let i=0;i<this.lecture.checkins.length;i++) {
         const alnums = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let result = "";
-        for (let j = 100; j > 0; --j) {
+        for (let j = 50; j > 0; --j) {
           result += alnums[Math.floor(Math.random() * alnums.length)];
         }
         this.lecture.checkins[i].code = result;
@@ -337,16 +347,18 @@ export default {
       this.lecture.end_time = new Date()
       this.$nextTick(() => {
         let self = this
-        this.start_time_picker = new Picker(document.querySelector('#lecture_start'), {
+        /*this.start_time_picker = new Picker(document.querySelector('#lecture_start'), {
           inline: true,
           controls: true,
           headers: true
-        });
-        this.end_time_picker = new Picker(document.querySelector('#lecture_end'), {
+        });*/
+        this.start_time_picker = new BroderickPicker('#lecture_start', 5);
+        this.end_time_picker = new BroderickPicker('#lecture_end', 5);
+        /*this.end_time_picker = new Picker(document.querySelector('#lecture_end'), {
           inline: true,
           controls: true,
           headers: true
-        });
+        });*/
       })
     },
     setAllowPlaybackSubmissions() {
@@ -359,8 +371,10 @@ export default {
     handleAddCheckin() {
       this.pickers.forEach((picker,i) => {
         if(picker) {
-          this.checkins[i].start_time = picker.start.pick().date
-          this.checkins[i].end_time = picker.end.pick().date
+          this.checkins[i].start_time = picker.start.pick()
+          this.checkins[i].end_time = picker.end.pick()
+          console.log('START TIME WAS ADDED @: ' + this.checkins[i].start_time)
+          console.log('END TIME WAS ADDED @: ' + this.checkins[i].end_time)
         }
       })
       this.checkins.push({
@@ -397,7 +411,8 @@ export default {
           if(checkin.end_time) {
             enddate = checkin.end_time
           }
-          pickers.start = new Picker(document.querySelector("#checkin_start_"+i), {
+          console.log('when you destroy a picker the startdate and enddate are: ' + startdate, enddate)
+          /*pickers.start = new Picker(document.querySelector("#checkin_start_"+i), {
             inline: true,
             rows: 1,
             headers: true,
@@ -410,7 +425,18 @@ export default {
             headers: true,
             date: enddate,
             controls: true
-          });
+          });*/
+          pickers.start = new BroderickPicker('#checkin_start_'+i, {
+            rows: 1,
+            date: startdate
+          }) 
+          pickers.end = new BroderickPicker('#checkin_end_'+i, {
+            rows: 1,
+            date: enddate
+          })
+          //this.checkins[i].start_time = pickers.start.pick()
+          //this.checkins[i].end_time = pickers.start.pick()
+          //console.log('the update pickers function happened and => ' + this.checkins)
           this.pickers.push(pickers)
         } else {
           this.pickers.push(null)
@@ -429,8 +455,8 @@ export default {
     handleRemoveCheckin(i) {
       this.pickers.forEach((picker,i) => {
         if(picker) {
-          this.checkins[i].start_time = picker.start.pick().date
-          this.checkins[i].end_time = picker.end.pick().date
+          this.checkins[i].start_time = picker.start.pick()
+          this.checkins[i].end_time = picker.end.pick()
         }
       })
       this.checkins.splice(i,1)
@@ -616,10 +642,12 @@ h1 {
 
 .picker-cell__control--prev::before {
   content: '⏶';
+  /*content: '🠹'*/
 }
 
 .picker-cell__control--next::before {
   content: '⏷';
+  /*content: '🠻'*/
 }
 
 .picker-cell__header {

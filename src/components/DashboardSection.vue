@@ -1,12 +1,12 @@
 <template>
-  <div class="dashboard-section">
-    <div class="dashboard-section-title-container">
+  <div :class="is_main?'dashboard-section-main':'dashboard-section'">
+    <div class="dashboard-section-title-container" v-on:click="onNameClick()">
       <h4 v-if="lecture_type === 'Live'" class="dashboard-section-title"> Synchronous</h4>
       <h4 v-else-if="lecture_type === 'Playback'" class="dashboard-section-title">Asynchronous</h4>
       <h4 v-else class="dashboard-section-title">{{ lecture_type }}</h4>
     </div>
-    <div class="dashboard-section-body-container">
-      <LectureList :lecture_type="lecture_type" :lecture_list="lecture_list" />
+    <div :class="is_main?'dashboard-section-body-container-main':'dashboard-section-body-container'">
+      <LectureList :lecture_type="lecture_type" :lecture_list="lecture_list" :two_lists="is_main"/>
     </div>
   </div>
 </template>
@@ -18,7 +18,14 @@
     name: 'DashboardSection',
     props: {
       lecture_type: String,
-      lecture_list: Array
+      lecture_list: Array,
+      on_click: {
+        type: Function,
+        default: (x) => {}
+      },
+    },
+    created() {
+      this.is_main = false;
     },
     computed: {
     },
@@ -27,10 +34,19 @@
     },
     data(){
       return {
+        is_main: false
       }
     },
     methods: {
-
+      onNameClick(){
+        this.is_main = !this.is_main;
+        if (this.is_main){
+          this.$emit("hide_all")
+        } else {
+          this.$emit("reveal_all")
+        }
+        this.$forceUpdate();
+      }
     }
   }
 </script>
@@ -40,13 +56,28 @@
   --dashboard-background-color: #f5f5f5;
   --dashboard-text-color: #2c3e50;
 }
+
 .dashboard-section {
-  width: 50%;
+  width: 100%;
   display: inline-block;
   vertical-align: top;
   margin-top: 1rem;
   background: var(--main-background-color);
-  color: var(--main-text-color); 
+  color: var(--main-text-color);
+  transition: left 0.5s, top 0.5s;
+}
+
+.dashboard-section-main {
+  position: absolute;
+  width: 85%;
+  left: 7.5%;
+  top: 0;
+  vertical-align: top;
+  margin-top: 1rem;
+  margin-right: 7.5%;
+  background: var(--main-background-color);
+  color: var(--main-text-color);
+  transition: left 0.5s, top 0.5s;
 }
 
 .dashboard-section-title-container {
@@ -54,6 +85,7 @@
   text-align: left;
   padding-left: 2rem;
   padding-top: 1rem;
+  cursor: pointer;
 }
 
 .dashboard-section-title {
@@ -65,24 +97,15 @@
   min-height: 10rem;
   max-height: 13rem;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.dashboard-section-body-container::-webkit-scrollbar {
-  width: 12px;
-}
-
-.dashboard-section-body-container::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: var(--dashboard-background-color);
+.dashboard-section-body-container-main {
+  height: 100%;
 }
 
 /*Ipad & below*/
 @media only screen and (max-width: 800px) {
-  .dashboard-section {
-    width: 100%;
-    /*margin-top: 4rem;*/
-  }
 
   .dashboard-section-title-container {
     text-align: center;

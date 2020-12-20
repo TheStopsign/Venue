@@ -57,6 +57,12 @@ courseRoutes.route('/update/:id').post(function (req, res) {
   if(req.body.updated_course.suffix) {
     updated_course.suffix = req.body.updated_course.suffix
   }
+  if(req.body.updated_course.meetingURL) {
+    updated_course.meetingURL = req.body.updated_course.meetingURL
+  }
+  if(req.body.updated_course.snooze) {
+    updated_course.snooze = req.body.updated_course.snooze
+  }
   Course.findByIdAndUpdate(id,
     updated_course,
     function (err, course) {
@@ -142,6 +148,28 @@ courseRoutes.post('/add_instructors/:id', (req, res) => {
   });
 });
 
+courseRoutes.post('/add_lecture_time/:id', (req, res) => {
+  let times = req.body.course_times;
+  let course_id = req.params.id;
+  Course.findById(course_id, function (err, course) {
+    Promise.all([
+      Course.findByIdAndUpdate(course_id, { $push: { course_times: { day:times.day, start_time: times.start_time, end_time: times.end_time } } })
+    ]).then(resolved => {
+      res.json();
+    });
+  });
+});
+courseRoutes.post('/delete_lecture_time/:id', (req, res) => {
+  let times = req.body.course_times;
+  let course_id = req.params.id;
+  Course.findById(course_id, function (err, course) {
+    Promise.all([
+      Course.findByIdAndUpdate(course_id, { $pull: { course_times: { day:times.day, start_time: times.start_time, end_time: times.end_time } } })
+    ]).then(resolved => {
+      res.json();
+    });
+  });
+});
 courseRoutes.post('/toggleAllSectionsPublic/:id', (req, res) => {
   let id = req.params.id;
   let ids = req.body.sections.map(a=>a._id);

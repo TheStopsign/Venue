@@ -11,7 +11,7 @@
                 <button class="btn btn-secondary" @click="editing_name = false">Cancel</button>
               </div>
             </div>
-            <div class="name-div" v-else>{{ current_user.first_name }} {{ current_user.last_name }} <button class="btn" title="Edit Course" id="edit-course" @click="editing_name = true"><img class="svg-color" id="edit-course" src="@/assets/icons8-edit.svg" alt="Edit" width="40" aria-label="Edit"/></button></div>
+            <div class="name-div" v-else>{{ current_user.first_name }} {{ current_user.last_name }} <button class="btn" title="Edit Course" id="edit-course" @click="editing_name = true"><img class="svg-color" id="edit-course" src="@/assets/venue-edit.svg" alt="Edit" width="40" aria-label="Edit"/></button></div>
             <div class="logout-div"><div class="logout-button" v-on:click="logoutUser" tabindex="0" role="button">Logout</div></div>
           </div>
 
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <!-- Dark mode switch
+            
             <div class="setting-option-section">
               <div class="left">
                 <div>
@@ -48,7 +48,7 @@
                 </label>
               </div>
             </div> 
-            -->
+            
             
           
             <div style="position:relative" class="setting-option-section">
@@ -178,7 +178,7 @@
       --settings-text: #517B94;
       --settings-small-div: rgba(0, 0, 0, 0.64);
 
-      --settings-switch-on: #42f593;
+      /* --settings-switch-on: #04852F; */
       --settings-switch-off: #f55442;
       --settings-switch-ball: white;
     }

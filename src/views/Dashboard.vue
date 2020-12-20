@@ -2,10 +2,18 @@
   <div id="dashboard-container">
     <SquareLoader role="status" v-if="!live_lectures_loaded && !playback_lectures_loaded && !recent_lectures_loaded && !upcoming_lectures_loaded"/>
     <div v-else>
-      <DashboardSection lecture_type="Live" :lecture_list="live_lectures" />
-      <DashboardSection lecture_type="Playback" :lecture_list="playback_lectures" />
-      <DashboardSection lecture_type="Recent" :lecture_list="recent_lectures" />
-      <DashboardSection lecture_type="Upcoming" :lecture_list="upcoming_lectures" />
+      <div class="dashboard-component" :style="{visibility: this.main === 'None' || this.main === 'Live' ? 'visible': 'hidden'}">
+        <DashboardSection lecture_type="Live" :lecture_list="live_lectures" @hide_all="main='Live'" @reveal_all="main='None'"/>
+      </div>
+      <div class="dashboard-component" :style="{visibility: this.main === 'None' || this.main === 'Playback' ? 'visible': 'hidden'}">
+        <DashboardSection lecture_type="Playback" :lecture_list="playback_lectures" @hide_all="main='Playback'" @reveal_all="main='None'"/>
+      </div>
+      <div class="dashboard-component" :style="{visibility: this.main === 'None' || this.main === 'Recent' ? 'visible': 'hidden'}">
+        <DashboardSection lecture_type="Recent" :lecture_list="recent_lectures" @hide_all="main='Recent'" @reveal_all="main='None'"/>
+      </div>
+      <div class="dashboard-component" :style="{visibility: this.main === 'None' || this.main === 'Upcoming' ? 'visible': 'hidden'}">
+        <DashboardSection lecture_type="Upcoming" :lecture_list="upcoming_lectures" @hide_all="main='Upcoming'" @reveal_all="main='None'"/>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +40,8 @@
 
   export default {
     name: 'Dashboard',
+    props: {
+    },
     computed: {
       ...authComputed
     },
@@ -66,10 +76,12 @@
         recent_lectures_loaded: Boolean,
         playback_lectures_loaded: Boolean,
         section_1: String,
-        section_2: String
+        section_2: String,
+        main: String,
       }
     },
     created() {
+      this.main = "None";
       this.STATIC_COURSE_COLORS = ['Aquamarine', 'Tomato', 'LightSalmon', 'Cyan', 'MediumTurquoise', 'PaleGreen', 'pink', 'violet', ]
       this.courses_loaded = 0
 
@@ -219,5 +231,16 @@
   #dashboard-container {
     width: 85%;
     margin: auto;
+  }
+  .dashboard-component {
+    width: 50%;
+    display: inline-block;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .dashboard-component {
+      width: 100%;
+      display: inline-block;
+    }
   }
 </style>

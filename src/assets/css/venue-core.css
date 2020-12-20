@@ -46,8 +46,8 @@
   --blue-pill-shadow: rgba(79, 109, 234, 0.3);
   --green-pill: #04852f;
   --green-pill-shadow: rgba(78, 205, 76, 0.3);
-  --foreground-pill: #f5f5f5;
-  --foreground-pill-text: #000000;
+  /* --foreground-pill: #f5f5f5; */
+  /* --foreground-pill-text: #000000; */
   --foreground-pill-shadow: rgba(109, 109, 109, 0.644);
   --foreground-pill-hover: rgba(54, 54, 54, 0.644);
   --date-and-percent: white;
@@ -67,6 +67,25 @@
   --modal-container-background: rgba(255, 255, 255, 0.65);
   --modal-lecture-border: rgba(120,120,120,1);
   --poll-background: lightskyblue;
+}
+
+/* The emerging W3C standard
+   that is currently Firefox-only */
+* {
+  scrollbar-color: var(--scrollbar-thumb-color) var(--main-background-color);
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+*::-webkit-scrollbar-track {
+  background: var(--main-background-color);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: calc(0.6rem / 2);
 }
 
 body {
@@ -116,7 +135,7 @@ h1,h2,h4 {
   box-shadow: 0px 3px 3px 0px var(--course-card-shadow);
   border-radius: 5px;
   margin-right: 2rem;
-  background-color: var(--course-card-background); 
+  background-color: var(--main-background-color); 
   color: var(--course-card-text);
 }
 
@@ -257,7 +276,10 @@ h1,h2,h4 {
   margin: 0.25rem;
   background: none;
   border: 0.25rem solid rgba(0,0,0,0);
+  border-radius: 1.5rem;
   display: inline-block;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .courseinfo-legend {
@@ -269,13 +291,45 @@ h1,h2,h4 {
 }
 
 .live-border {
-  border: 0.25rem dashed var(--sync-border);
+  margin: 0.1rem;
+  border-width: 0.25rem;
+  border-style: dashed;
   border-radius: 1.5rem;
+  border-color: var(--sync-border);
+}
+
+.live-border-display-only {
+  margin: 0.1rem;
+  border-width: 0.25rem;
+  border-style: dashed;
+  border-radius: 1.5rem;
+  border-color: var(--sync-border);
+}
+
+.live-border:hover {
+  border-width: 0.1rem;
+  padding: 0.4rem;
 }
 
 .playback-border {
-  border: 0.25rem dotted var(--async-border);
+  margin: 0.1rem;
+  border-width: 0.25rem;
+  border-style: dotted;
   border-radius: 1.5rem;
+  border-color: var(--async-border);
+}
+
+.playback-border-display-only {
+  margin: 0.1rem;
+  border-width: 0.25rem;
+  border-style: dotted;
+  border-radius: 1.5rem;
+  border-color: var(--async-border);
+}
+
+.playback-border:hover {
+  padding: 0.4rem;
+  border-width: 0.1rem;
 }
 
 .courseinfo-attendance-listing {
@@ -284,18 +338,16 @@ h1,h2,h4 {
 }
 
 .instructor-attendance-history-pill {
-  /* border: 2px solid #d13e34; */
+  display: inline-block;
   border-radius: 1rem;
   margin-right: 1rem;
   position: relative;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
+  width: 24rem;
+  height: 4rem;
   cursor: pointer;
   color: #2c3e50;
   box-shadow: 0px 3px 3px 1px var(--course-pill-shadow);
   transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
-  /* margin-bottom: 1rem; */
 }
 
 .instructor-attendance-history-pill:hover,
@@ -305,10 +357,8 @@ h1,h2,h4 {
   margin-left: -0.5rem;
   margin-top: -0.5rem;
   margin-right: -0.5rem;
-  margin-bottom: 0.25rem;
-  max-width: 25rem;
+  margin-bottom: -0.5rem;
   width: 25rem;
-  max-height: 5rem;
   height: 5rem;
   border-radius: 1.5rem;
   box-shadow: 0px 3px 5px 1px var(--course-pill-hover);
@@ -356,10 +406,10 @@ h1,h2,h4 {
   left: 20%;
   bottom: 0;
   padding-left: 1rem;
-  background: var(--foreground-pill);
+  background: var(--main-background-color);
   margin: 0.5rem 0rem;
   border-radius: 0.75rem;
-  color: var(--forgeround-pill-text);
+  color: var(--foreground-pill-text);
   box-shadow: 0px 3px 3px 1px var(--foreground-pill-shadow) inset;
   text-align: left;
   transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
@@ -369,7 +419,7 @@ h1,h2,h4 {
 .instructor-attendance-history-pill:focus .name-area {
   padding-top: 0.8rem;
   border-radius: 1rem;
-  box-shadow: 0px 3px 5px 1px var(--foreground-pill-hover) inset;
+  box-shadow: 0px 3px 5px 1px var(--foreground-pill-shadow) inset;
   transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -545,16 +595,6 @@ h1,h2,h4 {
   overflow-y: auto;
 }
 
-.dashboard-section-modal .sub-section::-webkit-scrollbar {
-  width: 12px;
-}
-
-.dashboard-section-modal .sub-section::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: var(--modal-background); 
-}
-
 .dashboard-section-modal .sub-section.is-mobile {
   margin: 0;
 }
@@ -647,36 +687,16 @@ h1,h2,h4 {
   top: 25px;
 }
 
-
-/* The emerging W3C standard
-   that is currently Firefox-only */
-custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #d13e34 white;
-}
-
-/* Works on Chrome/Edge/Safari */
-custom-scrollbar::-webkit-scrollbar {
-  width: 10px;
-}
-custom-scrollbar::-webkit-scrollbar-track {
-  background: white;
-}
-custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #d13e34;
-  border-radius: 20px;
-}
-
 .big-button {
   font-size: 1rem;
   font-weight: normal;
-  border: 2px solid var(--big-button-border);
-  color: var(--big-button-text);
+  border: 2px solid var(--main-text-color);
+  color: var(--main-text-color);
   padding: 0px 30px;
   height: 40px;
   line-height: 35px;
   border-radius: 5px;
-  background-color: var(--big-button);
+  background-color: var(--main-background-color);
   box-shadow: 0px 3px 5px var(--big-button-shadow);
   cursor: pointer;
   transition: border 0.25s, box-shadow 0.25s;
@@ -891,10 +911,8 @@ a:hover {
 }
 
 .btn.btn-danger {
-  background: var(--button-danger);
-  border: 0.1rem solid rgba(255,255,255, 0);
   box-shadow: none;
-  color: var(--button-text-color);
+  color: var(--button-danger);
 } 
 
 .btn.btn-primary:hover,
@@ -943,6 +961,7 @@ a:hover {
 .btn.btn-secondary:target img {
   filter: var(--widgets-color) invert(1);
   transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 0;
 }
 
 .btn.btn-danger:hover,
@@ -950,11 +969,9 @@ a:hover {
 .btn.btn-danger:active,
 .btn.btn-danger:target {
   outline: none;
-  border: 0.1rem solid var(--button-danger-shadow);
-  background-color: var(--button-danger-hover);
   box-shadow: 0px 3px 3px 0px var(--button-danger-shadow) inset;
   transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
-  color: white;
+  color: var(--button-danger-hover);
 } 
 
 input,select {
@@ -974,6 +991,7 @@ input:-webkit-autofill {
 
 .input-group-append {
   padding-left: 20px;
+  z-index: 0;
 }
 
 .form-control {
@@ -998,6 +1016,27 @@ th,td {
 .picker-item {
   color: var(--calendar-border);
   background: var(--calendar-background);
+}
+
+.js-inline-picker:hover,
+.js-inline-picker:active,
+.js-inline-picker:target,
+.js-inline-picker:focus {
+  border: 0px solid var(--main-background-color);
+  outline: none;
+  background: none;
+}
+
+#picker-item {
+  display: none;
+}
+
+.picker-item:hover,
+.picker-item:active {
+  background: var(--nav-bar-hover-background);
+  color: var(--nav-bar-hover-text);
+  box-shadow: 0px 3px 3px 0px var(--nav-bar-hover-top-shadow) inset, 0px -3px 3px 0px var(--nav-bar-hover-bottom-shadow) inset;
+  border-radius: 0.25rem;
 }
 .picker-cell__control,
 .picker-cell__control::before,
@@ -1041,6 +1080,15 @@ th,td {
   -moz-animation: fadeIn cubic-bezier(0.19, 1, 0.22, 1) 0.25s;
   -o-animation: fadeIn cubic-bezier(0.19, 1, 0.22, 1) 0.25s;
   -ms-animation: fadeIn cubic-bezier(0.19, 1, 0.22, 1) 0.25s;
+}
+
+.disable-select{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none
 }
 
 @keyframes fadeIn {

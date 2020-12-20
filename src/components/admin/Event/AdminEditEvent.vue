@@ -130,7 +130,7 @@
         const alnums =
           "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var result = "";
-        for (var i = 1000; i > 0; --i) {
+        for (var i = 50; i > 0; --i) {
           result += alnums[Math.floor(Math.random() * alnums.length)];
         }
         this.event.code = result;

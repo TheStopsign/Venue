@@ -1,7 +1,9 @@
 <template>
   <div class="lecture-list">
     <div v-if="lecture_list.length > 0">
-      <LectureCard v-for="lecture in lecture_list" :lecture_type="lecture_type" :lecture="lecture" :key="lecture._id" />
+      <span v-for="lecture in lecture_list" :key="lecture._id" :class="two_lists ? 'lecture-list-item-split': 'lecture-list-item'">
+        <LectureCard  :lecture_type="lecture_type" :lecture="lecture"/>
+      </span>
     </div>
     <p v-else class="no-lecture-text"> No {{ lecture_type }} Lectures</p>
   </div>
@@ -14,7 +16,11 @@
     name: 'LectureList',
     props: {
       lecture_type: String,
-      lecture_list: Array
+      lecture_list: Array,
+      two_lists: {
+        type: Boolean,
+        default: false
+      }
     },
     computed: {
     },
@@ -39,6 +45,18 @@
     margin: 1rem;
   }
 
+  .lecture-list-item {
+    display: inline-block;
+    float: left;
+    width: 100%;
+  }
+
+  .lecture-list-item-split {
+    display: inline-block;
+    float: left;
+    width: 50%;
+  }
+
   .no-lecture-text {
     color: var(--dashboard-text-color);
   }
@@ -48,5 +66,8 @@
     .lecture-list {
       width: 95%;
     }
+     .lecture-list-item-split {
+       width: 95%;
+     }
   } 
 </style>

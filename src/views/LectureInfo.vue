@@ -62,6 +62,7 @@
       async getLecture() {
         const response = await LectureAPI.getLectureWithSectionsAndCourse(this.lecture_id)
         this.lecture = response.data
+        this.lecture.meeting_link = this.lecture.meeting_link || this.lecture.sections[0].course.meetingURL
         this.lecture_has_loaded = true
         this.is_instructor = this.current_user.instructor_courses.some(a => a == this.lecture.sections[0].course._id)
         this.is_ta = this.current_user.ta_sections.some(a => this.lecture.sections.map(b=>b._id).includes(a))

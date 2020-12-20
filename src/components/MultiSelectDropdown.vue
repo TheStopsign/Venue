@@ -1,15 +1,14 @@
 <template>
-	<div class="multiselect" v-click-outside="handleClickOutside" @mouseover="open = true"
-      @mouseleave="open = false">
+	<div class="multiselect" v-click-outside="handleClickOutside">
 		<div :class="'multiselect-box z'+(999-(2*n)+1)" @click="open = !open">
-			<div class="multiselect-toggle float-right">
-				<img class="svg-color" src="@/assets/icons8-sort-down-26.png" width="10" height="10" alt="Down Icon" aria-label="Down Icon">
+			<div class="multiselect-toggle float-right disable-select">
+				<img class="svg-color" src="@/assets/venue-dropdown_icon.svg" width="10" height="10" alt="Down Icon" aria-label="Down Icon">
 			</div>
 			<div v-for="(selection,i) in selected" :class="'multiselect-selected ' + (i==0?'first ':'') + (i==selected.length-1?'last ':'')" :key="i" v-on:click.stop>
 				<div class="multiselect-selected-text" :title="getDisplayText(selection)">
 					{{getDisplayText(selection)}}
 				</div>
-				<div v-if="max > 1" class="multiselect-selected-remove">
+				<div v-if="max > 1" class="multiselect-selected-remove disable-select">
 					<button type="button" class="btn btn-danger" @click="removeSelection(i)">X</button>
 				</div>
 			</div>
@@ -45,28 +44,28 @@ export default {
 	created() {
 		this.options.forEach(option => {
 			if(this.preselected) {
-				let found = this.preselected.find(a => a._id == option._id || a === option)
+				let found = this.preselected.find(a => a._id === option._id || a === option);
 				if(found) {
-					this.selected.push(option)
+					this.selected.push(option);
 				} else {
-					this.unselected.push(option)
+					this.unselected.push(option);
 				}
 			} else {
-				this.unselected.push(option)
+				this.unselected.push(option);
 			}
 			
-		})
+		});
 		if(this.sortBy) {
-			this.unselected.sort((a,b) => a[this.sortBy] > b[this.sortBy] ? 1 : -1)
+			this.unselected.sort((a,b) => a[this.sortBy] > b[this.sortBy] ? 1 : -1);
 		}
 	},
 	methods: {
 		async addSelection(option) {
 			if(this.selected.length < this.max) {
-				this.selected.push(option)
+				this.selected.push(option);
 				this.selected.sort((a,b) => a[this.sortBy] > b[this.sortBy] ? 1 : -1)
 			} else if(this.max == 1 && this.selected[0] != option) {
-				this.unselected.push(this.selected[0])
+				this.unselected.push(this.selected[0]);
 				this.selected[0] = option;
 			}
 			let index = this.unselected.indexOf(option);
@@ -74,7 +73,10 @@ export default {
 			if (index > -1) {
 				this.unselected.splice(index, 1);
 			}
-			this.unselected.sort((a,b) => a[this.sortBy] > b[this.sortBy] ? 1 : -1)
+			this.unselected.sort((a,b) => a[this.sortBy] > b[this.sortBy] ? 1 : -1);
+			if (this.selected.length >= this.max || this.unselected.length === 0) {
+				this.open = false;
+			}
 			this.sendUpdates()
 		},
 		removeSelection(i) {
@@ -149,6 +151,7 @@ export default {
 	margin-left: 0rem;
 	margin-top: 0.3rem;
 	width: 1rem;
+
 }
 .multiselect-selected {
 	position: relative;
@@ -162,11 +165,12 @@ export default {
 }
 .multiselect-selected-text {
 	padding: 0.25rem 0.5rem;
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	cursor: text;
+	color: black;
 }
 .multiselect-dropdown {
 	max-height: 10rem;

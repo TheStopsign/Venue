@@ -2,7 +2,7 @@
   <div id="lecture-upload-modal">
     <LoadingOverlay v-if="waiting"/>
     <button type="button" id="video-upload-btn" class="btn btn-primary" @click="handleShowModal" :tabindex="(modal_open ? '-1' : '0')" title="Upload Recording">
-      <img class="svg-color" src="@/assets/icons8-upload-96.png" width="60" alt="QR Code" aria-label="QR Code">
+      <img class="svg-color" src="@/assets/venue-upload.svg" width="60" alt="QR Code" aria-label="QR Code">
     </button>
     <div id="lecture_modal_viewable" class="hiddenModal">
       <div class="row titlerow">
@@ -15,9 +15,9 @@
         <input id="youtube_selector" type="text" class="form-control" role="input" tabindex="0" aria-labelledby="youtube_label"/>
         <div v-if="video_type == 'video/youtube'">
           <label id="yt_length_label" class="col-12">Length:</label>
-          <input class="col-4" type="number" id="yt_hour" min="0" max="5" value="0" aria-labelledby="yt_length_label" placeholder="0 hours"/>
-          <input class="col-4" type="number" id="yt_min" min="0" max="59" value="0" aria-labelledby="yt_length_label" placeholder="0 min"/>
-          <input class="col-4" type="number" id="yt_sec" min="0" max="59" value="0" aria-labelledby="yt_length_label" placeholder="0 sec"/>
+          <input class="col col-4" type="number" id="yt_hour" min="0" max="5" value="0" aria-labelledby="yt_length_label" placeholder="0 hours"/>
+          <input class="col col-4" type="number" id="yt_min" min="0" max="59" value="0" aria-labelledby="yt_length_label" placeholder="0 min"/>
+          <input class="col col-4" type="number" id="yt_sec" min="0" max="59" value="0" aria-labelledby="yt_length_label" placeholder="0 sec"/>
         </div>
       </div>
       <div class="row webexrow">
@@ -25,16 +25,19 @@
         <input id="webex_selector" type="text" class="form-control" role="input" tabindex="0" aria-labelledby="webex_label"/>
         <div v-if="video_type == 'webex'">
           <label id="webex_length_label" class="col-12">Length:</label>
-          <input class="col-4" type="number" id="webex_hour" min="0" max="5" value="0" aria-labelledby="webex_length_label" placeholder="0 hours"/>
-          <input class="col-4" type="number" id="webex_min" min="0" max="59" value="0" aria-labelledby="webex_length_label" placeholder="0 min"/>
-          <input class="col-4" type="number" id="webex_sec" min="0" max="59" value="0" aria-labelledby="webex_length_label" placeholder="0 sec"/>
+          <input class="col col-4" type="number" id="webex_hour" min="0" max="5" value="0" aria-labelledby="webex_length_label" placeholder="0 hours"/>
+          <input class="col col-4" type="number" id="webex_min" min="0" max="59" value="0" aria-labelledby="webex_length_label" placeholder="0 min"/>
+          <input class="col col-4" type="number" id="webex_sec" min="0" max="59" value="0" aria-labelledby="webex_length_label" placeholder="0 sec"/>
         </div>
       </div>
       <div class="row filerow" v-if="video_type == ''">
         <input id="video_selector" name="lecturevideo" type="file" accept="video/*" class="btn" role="button" tabindex="0" aria-label="Select Video and Show Poll Creation Options"/>
       </div>
+      <div class="row attachmentrow" v-if="file_type == ''">
+        <input id="attachment_selector" name="lectureattachment" type="file" accept="image/*, .docx, .pptx, .doc, .ppt, .txt, .pdf" class="btn" role="button" tabindex="0" aria-label="Select File to Upload"/>
+      </div>
       <div class="row" id="lecture_container" v-if="file_selected">
-        <div class="col" v-if="!update_lecture">
+        <div class="col add-poll-col" v-if="!update_lecture">
           <h2>Add Poll</h2>
           <div class="poll_card">
             <div class="row questionrow">
@@ -42,23 +45,23 @@
               <textarea id="question" class="col" type="text" placeholder="eg. Which of the following...?" aria-labelledby="question_label"/>
             </div>
             <div class="row">
-              <div class="col-4">
+              <div class="col col-4">
                 <!-- <label for="hour">Hour:</label> -->
                   <label id="hour_label">Hour</label>
                   <input type="number" id="hour" min="0" max="5" aria-labelledby="hour_label"/>
               </div>
-              <div class="col-4">
+              <div class="col col-4">
                 <!-- <label for="min">Minute:</label> -->
                   <label id="minute_label">Min</label>
                   <input type="number" id="min" min="0" max="59" aria-labelledby="minute_label"/>
               </div>
-              <div class="col-4">
+              <div class="col col-4">
                 <!-- <label for="sec">Second:</label> -->
                   <label id="seconds_label">Sec</label>
                   <input type="number" id="sec" min="0" max="59" aria-labelledby="seconds_label"/>
               </div>
             </div>
-            <h4 class="row">Possible Answers</h4>
+            <h4>Possible Answers</h4>
             <div class="row">
               <label id="spacer1">Number</label>
               <label id="a_label">Answer</label>
@@ -73,10 +76,12 @@
               </li>
             </ol>
             <div class="row addanswerrow">
-              <button type="button" id="add_answer_btn" class="btn btn-secondary" @click="current_answers.push('');current_is_correct.push(false)">Add Option</button>
-            </div>
-            <div class="row">
-              <button type="button" id="add_poll_btn" class="btn btn-primary" @click="addPoll()">Save Poll</button>
+              <div class="col">
+                <button type="button" id="add_answer_btn" class="btn btn-secondary" @click="current_answers.push('');current_is_correct.push(false)">Add Option</button>
+              </div>
+              <div class="col">
+                <button type="button" id="add_poll_btn" class="btn btn-primary" @click="addPoll()">Save Poll</button>
+              </div>
             </div>
           </div>
         </div>
@@ -90,43 +95,52 @@
               <button type="button" class="removepollbtn btn btn-danger" @click="polls.splice(i,1)" :aria-label="'Remove Poll '+(i+1)">X</button>
             </li>
             <li v-for="(poll,i) in need_timestamp" :key="i" class="row needs-timestamp-li">
-              <div class="col-3">
+              <div class="col-md-3">
                 <label id="hour_label">Hour</label>
                 <input type="number" id="hour" min="0" max="5" v-model.lazy="poll.hour" aria-labelledby="hour_label"/>
               </div>
-              <div class="col-3">
+              <div class="col-md-3">
                 <label id="minute_label">Min</label>
                 <input type="number" id="min" min="0" max="59" v-model.lazy="poll.min" aria-labelledby="minute_label"/>
               </div>
-              <div class="col-3">
+              <div class="col-md-3">
                 <label id="seconds_label">Sec</label>
                 <input type="number" id="sec" min="0" max="59" v-model.lazy="poll.sec" aria-labelledby="seconds_label"/>
               </div>
-              <div class="col-3">
+              <div class="col-md-3">
                 <button type="button" class="btn btn-primary get-time" aria-label="Set Time From Video" @click="getVideoTime(i)">Get Time</button>
               </div>
               <input class="needs-timestamp" :value="poll.question" readonly aria-labelledby="pq_label"/>
             </li>
           </ol>
         </div>
-        <div class="col-3" v-else>
+        <div class="col col-3" v-else>
         </div>
         <div :class="(update_lecture?'col-6':'col-5')">
           <video id="video_player" class="video-js vjs-big-play-centered" controls></video>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-5">
+          <label id="playback_start_label">Video Attendance Start</label>
+        </div>
+        <div class="col-md-5">
+          <label id="playback_end_label">Video Attendance End</label>
+        </div>
+        <div class="col-md-2">
+        </div>
+      </div>
       <div class="row" id="bottomrow">
-        <div class="col">
-        <label id="playback_start_label">Video Attendance Start</label>
-        <div id="playback_start" aria-labelledby="playback_start_label" type="datetime-local"></div>
+        <div class="col-md-5">
+          <div id="playback_start" aria-labelledby="playback_start_label" type="datetime-local"></div>
         </div>
-        <div class="col">
-        <label id="playback_end_label">Video Attendance End</label>
-        <div id="playback_end" class="" aria-labelledby="playback_end_label" type="datetime-local"></div>
+        <div class="col-md-5">
+          <div id="playback_end" class="" aria-labelledby="playback_end_label" type="datetime-local"></div>
         </div>
-        
-        <button type="button" v-if="update_lecture" id="video_upload_btn" class="btn btn-secondary uploadbtn" @click="updateLecture()">Upload</button>
-        <button type="button" v-else id="video_upload_btn" class="btn btn-secondary uploadbtn" @click="hideModal()">Upload</button>
+        <div class="col-md-2">
+          <button type="button" v-if="update_lecture" id="video_upload_btn" class="btn btn-secondary uploadbtn" @click="updateLecture()">Upload</button>
+          <button type="button" v-else id="video_upload_btn" class="btn btn-secondary uploadbtn" @click="hideModal()">Upload</button>
+        </div>
       </div>
     </div>
   </div>
@@ -277,8 +291,8 @@ export default {
         this.hideModal()
         this.waiting = false
         this.$router.push({
-          name: "course_info",
-          params: { id: (this.$store.state.user.current_user.ta_sections.includes(this.$route.params.course_id)?this.$route.params.course_id:course_id) }
+          name: "lecture_info",
+          params: { lecture_id: lect._id }
         })
       } else {
         for(let i=0;i<this.polls.length;i++) {
@@ -291,8 +305,8 @@ export default {
               this.hideModal()
               this.waiting = false
               this.$router.push({
-                name: "course_info",
-                params: { id: (this.$store.state.user.current_user.ta_sections.includes(this.$route.params.course_id)?this.$route.params.course_id:course_id) }
+                name: "lecture_info",
+                params: { lecture_id: lect._id }
               })
             } else {
               for(let i=0;i<this.polls.length;i++) {
@@ -305,8 +319,8 @@ export default {
                     this.hideModal()
                     this.waiting = false
                     this.$router.push({
-                      name: "course_info",
-                      params: { id: course_id }
+                      name: "lecture_info",
+                      params: { lecture_id: lect._id }
                     })
                   }
                 })
@@ -318,9 +332,9 @@ export default {
         }
       }
     },
-    getSignedURL(filename) {
+    getSignedRecordingURL(filename) {
       return new Promise((resolve, reject) => {
-        LectureAPI.getSignedUrl(filename)
+        LectureAPI.getSignedRecordingUrl(filename)
           .then(data => {
             resolve(data);
           })
@@ -329,12 +343,37 @@ export default {
           });
       });
     },
-    uploadMediaToS3(lect) {
+    uploadVideoToS3(lect) {
       return new Promise((resolve,reject) => {
-        this.getSignedURL(lect._id + '-' + document.getElementById("video_selector").files[0].name).then(data => {
+        this.getSignedRecordingURL(lect._id + '-' + document.getElementById("video_selector").files[0].name).then(data => {
           fetch(data.data, {
             method: 'PUT',
             body: document.getElementById("video_selector").files[0]
+          }).then(res => {
+            resolve(data.data)
+          })
+        }).catch(err => {
+          reject(err)
+        });
+      })
+    },
+    getSignedFileURL(filename) {
+      return new Promise((resolve, reject) => {
+        LectureAPI.getSignedFileUrl(filename)
+          .then(data => {
+            resolve(data);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    },
+    uploadFileToS3(lect) {
+      return new Promise((resolve,reject) => {
+        this.getSignedFileURL(lect._id + '-' + document.getElementById("file_selector").files[0].name).then(data => {
+          fetch(data.data, {
+            method: 'PUT',
+            body: document.getElementById("file_selector").files[0]
           }).then(res => {
             resolve(data.data)
           })
@@ -557,6 +596,7 @@ h2 {
   overflow-y: auto;
   z-index: 1001;
   padding: 1rem;
+  border-radius: 1rem;
 }
 #close_lecture_modal {
   position: absolute;
@@ -568,9 +608,8 @@ h2 {
 }
 #lecture_container {
   position: relative;
-  padding-top: 2rem;
+  padding: 2rem 0rem;
   width: 100%;
-  height: 20rem;
 }
 #video_selector {
   position: relative;
@@ -583,13 +622,12 @@ h2 {
   height: 100%;
 }
 #bottomrow {
-  padding: 2rem;
-  padding-bottom: 3rem;
-  margin: 0;
+  padding: 0rem 0rem 2rem 0rem;
+  margin: 0rem;
   width: 100%;
 }
 #playback_start {
-  height: 4rem;
+  /* height: 4rem; */
   width: 100%;
   font-size: 1.5rem;
 }
@@ -611,8 +649,8 @@ h2 {
   text-align: center;
 }
 #video_upload_btn {
-  height: 10rem;
-  width: 20%;
+  height: 100%;
+  width: 100%;
 }
 li {
   width: 100%;
@@ -642,7 +680,6 @@ input {
 .answerfield {
   position: relative;
   width: 80%;
-  height: 1rem;
   font-size: 1rem;
 }
 #correct_label {
@@ -659,19 +696,23 @@ input {
   padding: 0;
 }
 #add_answer_btn {
-  position: absolute;
-  left: 0;
+  /* position: absolute; */
+  /* left: 0; */
   width: 100%;
-  margin: 0;
+  /* margin: 0; */
 }
 #add_poll_btn {
-  position: absolute;
-  right: 0;
-  margin: 0;
+  /* position: absolute; */
+  /* right: 0; */
+  /* margin: 0; */
+  width: 100%;
 }
 .addanswerrow {
   height: 2.5rem;
   margin-bottom: 1rem;
+}
+.addanswerrow .col {
+  padding: 0rem 0.5rem;
 }
 #question,
 #hour,
@@ -687,6 +728,8 @@ input {
 
 h4 {
   padding-top: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
 }
 
 p {

@@ -1,16 +1,17 @@
 <template>
     <footer class="footer">
     	Venue | 
-    	<a href="https://github.com/rcos/Venue2" target="_blank" aria-label="Github Repository">
-    		<img class="icon github-icon" src="../assets/github_mark.png" aria-label="Github Icon" alt="Github Icon"/>
+    	<a href="https://github.com/TheStopsign/Venue" target="_blank" aria-label="Github Repository">
+    		<img class="icon" src="../assets/github_mark.png" aria-label="Github Icon" alt="Github Icon"/>
     	</a> |
 		<a href="https://blacklivesmatter.com/" target="_blank" aria-label="Black Lives Matter">
-    		<img class="icon" src="../assets/black_lives_matter.svg" aria-label="BLM Icon" alt="BLM Icon"/>
+    		<img class="icon" src="../assets/venue-black-lives-matter.svg" aria-label="BLM Icon" alt="BLM Icon"/>
     	</a> |
-			An RCOS project | Icons by <a target="_blank" href="https://icons8.com">Icons8
+		<a href="https://girlswhocode.com/" target="_blank" aria-label="Girls Who Code">
+			<img class="icon" src="../assets/Girls_who_code_logo.svg" aria-label="Girls Who Code Icon" alt="Girls Who Code Icon"/>
 		</a> |
-		<a href="https://www.venue-meetings.com/" target="_blank">
-			Donate to Venue !
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ejwhitton43%40gmail.com&currency_code=USD" target="_blank">
+			Donate
 		</a>
     </footer>
 </template>
@@ -21,7 +22,9 @@ import PaletteAPI from '../services/PaletteAPI';
 export default {
 	
 created() {
-	this.setPalette()
+	if(this.$store.state.user) {
+		this.setPalette()
+	}
 },
   name: "Footer",
   methods: {
@@ -54,12 +57,12 @@ created() {
 	/* padding-top: 0.2rem; */
 	margin: auto;
 	text-align: center;
-	padding: 5px;
+	padding: 0.25rem;
 }
 
 .icon {
 	filter: var(--widgets-color); 
-	width: 1.5rem;
+	height: 1.5rem;
 	cursor: pointer;
 }
 
@@ -67,9 +70,5 @@ created() {
 	width: 1rem;
 	cursor: pointer;
 	filter: var(--widgets-color);
-}
-
-.github-icon {
-	width: 1.25rem;
 }
 </style>

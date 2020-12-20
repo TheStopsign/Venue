@@ -122,16 +122,6 @@
   height: 20rem;
   overflow-y: auto;
 }
-#horizontal-section::-webkit-scrollbar,
-#vertical-section::-webkit-scrollbar {
-  width: 12px;
-}
-#horizontal-section::-webkit-scrollbar-thumb,
-#vertical-section::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px var(--event-active-shadow);
-background-color: var(--event-list-background);
-}
 .mleft-one {
   margin-left: 1rem;
 }

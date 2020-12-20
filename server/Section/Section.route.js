@@ -6,6 +6,7 @@ const ObjectID = require(`mongoose`).Types.ObjectId;
 let Section = require('./Section.model');
 let User = require('../User/User.model');
 let Course = require('../Course/Course.model');
+let Attachment = require('../Attachments/Attachment.model');
 
 sectionRoutes.route('/add').post(function (req, res) {
   let section = new Section(req.body.section);
@@ -390,6 +391,33 @@ sectionRoutes.route('/join_public_sections').post(function (req, res) {
   ]).then(resolved => { 
     res.json(true)
   })
+});
+
+const AWS = require("aws-sdk");
+const s3 = new AWS.S3({
+	accessKeyId: process.env.AWSAccessKeyId,
+	secretAccessKey: process.env.AWSSecretKey,
+	region: 'us-east-2'
+});
+
+sectionRoutes.route('/get_signed_url/:filename').get(function(req, res) {
+	const fileurls = [];
+	const params = {
+		Bucket: "venue-attachments",
+		Key: req.params.filename,
+		Expires: 60*60, // expiry time
+		ACL: "bucket-owner-full-control"
+	};
+	s3.getSignedUrl("putObject", params, function(err, url) {
+		if (err) {
+			console.log("<ERROR> Getting signed URL");
+			res.json();
+		} else {
+			fileurls[0] = url;
+			console.log("<SUCCESS> Getting signed URL: ", fileurls[0]);
+			res.json(fileurls[0]);
+		}
+	});
 });
 
 module.exports = sectionRoutes;

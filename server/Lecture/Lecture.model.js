@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+require('mongoose-type-url');
 const Schema = mongoose.Schema;
 
 let Section = require('../Section/Section.model');
+let Attachment = require('../Attachments/Attachment.model');
 
 //Define collection and schema for Lecture
 let Lecture = new Schema({
-	// TODO: Add Boolean that determines whether or not a lecture is live or a lecture is playback
 	title: String,
 	sections: [{
 		type: mongoose.Schema.Types.ObjectId,
@@ -34,7 +35,17 @@ let Lecture = new Schema({
 	video_type: { type: String, default: "" },
 	num_playback_polls: Number,
 	email_sent: {type: Boolean, default: false},
-	meeting_link: String
+	meeting_link: mongoose.SchemaTypes.Url,
+	class_links: {
+		type: [{
+			type: mongoose.SchemaTypes.Url
+		}],
+		default: []
+	},
+	files: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Attachment'
+	}]
 });
 
 module.exports = mongoose.model('Lecture', Lecture);

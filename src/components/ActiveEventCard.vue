@@ -19,7 +19,7 @@
       </div>
       <div class="event-card-section" id="time-section">
         <div>
-          <img src="@/assets/clock.svg" class="clock" alt="Clock Icon" aria-label="Clock Icon">
+          <img src="@/assets/venue-clock.svg" class="clock" alt="Clock Icon" aria-label="Clock Icon">
           <div class="time-remaining">
             <span v-if="status == 'pending'" class="pending-text">pending</span>
             <div v-else-if="status == 'ongoing' || status == 'static'">

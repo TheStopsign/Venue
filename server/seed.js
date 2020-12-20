@@ -6,8 +6,6 @@ const Lecture = require("./Lecture/Lecture.model")
 const LectureSubmission = require("./LectureSubmission/LectureSubmission.model")
 const PlaybackPoll = require("./PlaybackPoll/PlaybackPoll.model")
 
-const db = "mongodb://localhost:27017/Venue2";
-
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -397,6 +395,8 @@ c1 = {
 	name: "Data Structures",
 	prefix: "CSCI",
 	suffix: 1200,
+	snooze: 15,
+	meetingURL: "default_link",
 	instructors: [
 		u1.email
 	]
@@ -688,7 +688,7 @@ p4 = {
 	timestamp: 5
 }
 
-seeder.connect(process.env.DB_URI || db, function () {
+seeder.connect(process.env.DB_URI || 'mongodb://localhost:27017/Venue', function () {
 	seeder.loadModels([
 		"./Course/Course.model",
 		"./User/User.model",

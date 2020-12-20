@@ -1,47 +1,45 @@
-<p align="center"><img src="https://github.com/rcos/Venue2/blob/master/src/assets/venue-logo.svg" alt="alt text" width="150" height="150"></p>
+<p align="center"><img src="https://github.com/TheStopsign/Venue/blob/master/src/assets/venue-logo.svg" alt="alt text" width="150" height="150"></p>
 
 # Venue
 
-### Gauging Engagement | venue-meetings.com
+Gauging Engagement | www.venue-meetings.com
 
-### <em>Every second LMS fails, we get one step closer</em>
+<em>Every second LMS fails, we get one step closer</em>
+
+## Developing
 
 ### Prerequisites
 
-- Git
+#### Technologies
+
 - Vue.js
-- Node.js and NPM
+- Node.js
 - MongoDB
 
-### Developing
+#### Additional setup steps
+1. Clone the repository
+2. Navigate into the repository's server directory
+3. `npm install`
+4. Navigate back into the repository's root directory
+5. `npm install`
 
-Run `npm install`
+### Back-End
 
-#### Front-End
+#### 1) Database
+1. In a new shell, navigate to the /server directory
+2. Start the mongodb daemon `mongod` (might need to run with root priveleges depending on installation or kill existing instances with `sudo killall mongod`)
 
-Run `npm run serve` 
+#### 2) Server
+1. In a new shell, navigate to the /server directory
+2. Start the NodeJS server `nodemon server`
 
-#### Back-End
+#### 3) Front-End
+1. In a new shell, navigate to the / directory (project's root directory)
+2. Start the frontend client `npm run serve`
 
-1. In a separate shell navigate to the 'server' directory `cd server`
-2. Start the mongodb daemon `mongod` (might need to run with root priveleges depending on installation)
-3. In a separate shell navigate to the 'server' directory again
-4. Start the node server `nodemon server`
+## Compiles and minifies for production
+<em>Note, this step is done automatically during live/production builds</em> `npm run build`
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Testing
+`npm run test` will initiate CL testing using Cypress
+`npm run test:ui` will launch Cypress's GUI based testing client
