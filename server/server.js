@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path')
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 const jwt = require('jsonwebtoken');
 const serveStatic = require('serve-static');
 const LOCAL_PORT = 4000;
@@ -63,12 +64,11 @@ function start() {
   const pollRouter = require('./PlaybackPoll/PlaybackPoll.route')
 
   // Connect to the database before starting the application server.
-  mongoose.connect(process.env.DB_URI, function (err, client) {
+  mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
     if (err) {
       console.log(err);
       process.exit(1);
     }
-    console.log("Database connection ready");
     // Initialize the app.
     var server = app.listen(process.env.PORT || LOCAL_PORT, function () {
       var port = server.address().port;
@@ -77,7 +77,7 @@ function start() {
   });
 
   app.use(cors({
-      origin:['https://www.venue-meetings.com','http://localhost:8080','storage.googleapis.com/venue-meetings-recordings'],
+      origin:['https://www.venue-meetings.com','http://localhost:8080'],
       methods:['GET','POST','DELETE','PUT'],
       credentials: true
   }));
