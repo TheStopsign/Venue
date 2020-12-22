@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 require('mongoose-type-url');
+const Grid = require('gridfs-stream');
 
 const Schema = mongoose.Schema;
 
