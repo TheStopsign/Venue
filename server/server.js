@@ -6,7 +6,6 @@ const path = require('path')
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 const jwt = require('jsonwebtoken');
-const serveStatic = require('serve-static');
 const LOCAL_PORT = 4000;
 
 const passport = require('passport')
