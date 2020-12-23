@@ -18,9 +18,7 @@ Gauging Engagement | www.venue-meetings.com
 
 #### Additional setup steps
 1. Clone the repository
-2. Navigate into the repository's server directory
-3. `npm install`
-4. Navigate back into the repository's root directory
+4. Navigate into the repository's root directory
 5. `npm install`
 
 ### Back-End
