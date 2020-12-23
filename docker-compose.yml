@@ -38,7 +38,7 @@ services:
       - 4000:4000
     environment:
       - NODE_ENV=development
-      - DB_URI=${DB_URI}
+      - DB_URI=mongodb://mongo:27017/Venue
       - AWSSecretKey=${AWSSecretKey}
       - AWSAccessKeyId=${AWSAccessKeyId}
       - WEBEX_CLIENT_SECRET=${WEBEX_CLIENT_SECRET}
