@@ -53,13 +53,13 @@
           
             <div style="position:relative" class="setting-option-section">
                 <div class="left"></div>
-                <div style="position:absolute" class="right">
+                <div class="right">
                   <button class="btn btn-primary" @click="saveName()">Save Changes</button>
                 </div>
             </div>
 
             <div style="position:relative" class="setting-option-section">
-                <div class="left" style="position:absolute">
+                <div class="left">
                     <router-link :to="{name: 'teach_new_course'}"><button class="btn btn-primary">Teach New Course</button></router-link>
                 </div>
                 <div class="right">
@@ -185,9 +185,11 @@
 
     .settings-container {
       background-color: var(--main-background-color);
-      margin: 80px 6rem 0px 6rem;
+      padding: 2rem;
+      margin: 80px auto;
       text-align: left;
       background: var(--main-background-color);
+      max-width: 50rem;
     }
 
     .settings-links {
@@ -208,7 +210,7 @@
         line-height: 30px;
         text-align: right;
         box-sizing: border-box;
-        padding-right: 10px;
+        margin-right: 10px;
         border-radius: 5px;
         cursor: pointer;
     }
@@ -220,7 +222,6 @@
 
     .name-area {
         font-size: 2rem;
-        /* margin-bottom: 40px; */
     }
 
     .name-area .name-div {
@@ -229,24 +230,22 @@
     }
 
     .name-area .logout-div {
-      text-align: right;
-      width: 24%;
+      float: right;
     }
 
     .name-area .logout-div .logout-button {
         font-size: 0.9rem;
-        width: 150px;
+        padding: 0.5rem 2rem;
         text-align: center;
-        height: 35px;
-        line-height: 30px;
+        font-size: 1rem;
         border: 3px solid var(--settings-logout-button); 
-        border-radius: 4px;
+        border-radius: 0.5rem;
         box-shadow: 0px 3px 5px var(--settings-logout-button-shadow);
         background-color: var(--main-background-color);
         transition: background 0.25s, color 0.25s;
         font-weight: bold;
         color: var(--settings-logout-button);
-        /* background-color: #FC6F71; */
+        font-family: "Exo";
         cursor: pointer;
     }
 
@@ -263,10 +262,10 @@
     }
 
     .setting-option-section {
-        padding: 30px 15px;
-        background-color: var(--main-background-color);
+        margin: 30px 15px;
+        /* background-color: var(--main-background-color); */
         color: var(--main-text-color);
-        background: var(--main-background-color);
+        /* background: var(--main-background-color); */
     }
 
     .value-area {
@@ -284,13 +283,13 @@
     }
     .setting-option-section .right {
         width: 25%;
-        text-align: right;
+        float: right;
     }
 
     .small-div {
         font-size: 0.9rem;
         color: var(--settings-small-div);
-        padding-left: 10px;
+        margin-left: 10px;
     }
 
     .change-button {
