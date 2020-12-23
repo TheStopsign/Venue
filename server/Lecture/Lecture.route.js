@@ -1,6 +1,5 @@
 const express = require('express');
 const lectureRoutes = express.Router();
-const formidable = require('formidable');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
 	service: 'gmail',
