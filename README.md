@@ -18,8 +18,8 @@ Gauging Engagement | www.venue-meetings.com
 
 #### Additional setup steps
 1. Clone the repository
-4. Navigate into the repository's root directory
-5. `npm install`
+2. Navigate into the repository's root directory
+3. `npm install`
 
 ### Back-End
 
@@ -39,5 +39,5 @@ Gauging Engagement | www.venue-meetings.com
 <em>Note, this step is done automatically during live/production builds</em> `npm run build`
 
 ## Testing
-`npm run test` will initiate CL testing using Cypress
-`npm run test:ui` will launch Cypress's GUI based testing client
+- `npm run test` will initiate CL testing using Cypress
+- `npm run test:ui` will launch Cypress's GUI based testing client
