@@ -29,7 +29,6 @@ import CourseInfo from './views/CourseInfo.vue';
 import NewEvent from './views/NewEvent.vue';
 import EventInfo from './views/EventInfo.vue';
 import LecturePlayback from './views/LecturePlayback.vue';
-import WebexTest from './views/WebexTest.vue';
 import NewLecture from './views/NewLecture.vue';
 import LectureInfo from './views/LectureInfo.vue';
 import Settings from './views/Settings.vue';
@@ -323,15 +322,6 @@ const router = new VueRouter({
       name: 'event_info',
       path: '/event_info/:event_id',
       component: EventInfo,
-      meta: {
-        requiresAuth: true,
-        requiresAdmin: true
-      }
-    },
-    {
-      name: 'webex_test',
-      path: '/webex_test',
-      component: WebexTest,
       meta: {
         requiresAuth: true,
         requiresAdmin: true
