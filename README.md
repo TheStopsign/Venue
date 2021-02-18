@@ -1,3 +1,5 @@
+LEGACY. Active Development has moved to github.com/TheStopsign/venue-new
+
 <p align="center"><img src="https://github.com/TheStopsign/Venue/blob/master/src/assets/venue-logo.svg" alt="alt text" width="150" height="150"></p>
 
 # Venue
