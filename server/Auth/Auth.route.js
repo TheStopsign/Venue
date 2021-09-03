@@ -32,7 +32,7 @@ passport.deserializeUser(function(user, done) {
 });
 passport.use(new (require('passport-cas').Strategy)({
   version: 'CAS3.0',
-  ssoBaseURL: 'https://cas-auth.rpi.edu/cas',
+  ssoBaseURL: 'https://cas.auth.rpi.edu/cas',
   serverBaseURL: (process.env.NODE_ENV === "production"?'https://www.venue-meetings.com':'http://localhost:4000')
 }, function(profile, done) {
   var login = profile.user.toLowerCase();
