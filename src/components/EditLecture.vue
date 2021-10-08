@@ -98,6 +98,30 @@
           <input v-if="lecture.allow_playback_submissions" v-model="lecture.playback_submission_end_time"/>
         </div>
       </div>
+      <div class="row" v-if="lecture.video_type">
+        <div class="col-md-6">
+          <label>video type</label>
+        </div>
+        <div class="col-md-6">
+          <input v-model="lecture.video_type" disabled readonly/>
+        </div>
+      </div>
+      <div class="row" v-if="lecture.video_ref">
+        <div class="col-md-6">
+          <label>video URL/link</label>
+        </div>
+        <div class="col-md-6">
+          <input v-model="lecture.video_ref"/>
+        </div>
+      </div>
+      <div class="row" v-if="lecture.video_ref || lecture.video_length">
+        <div class="col-md-6">
+          <label>seconds to watch for full credit</label>
+        </div>
+        <div class="col-md-6">
+          <input v-model="lecture.video_length"/>
+        </div>
+      </div>
       <div class="row">
       
       <!-- </div>
