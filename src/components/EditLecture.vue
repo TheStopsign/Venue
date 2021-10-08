@@ -119,7 +119,7 @@
           <label>seconds to watch for full credit</label>
         </div>
         <div class="col-md-6">
-          <input v-model="lecture.video_length"/>
+          <input v-model="lecture.video_length" type="number"/>
         </div>
       </div>
       <div class="row">
